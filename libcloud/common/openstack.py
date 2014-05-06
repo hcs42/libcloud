@@ -270,6 +270,7 @@ class OpenStackAuthConnection(ConnectionUserAndKey):
                 raise MalformedResponseError('Failed to parse JSON', e)
 
             try:
+                print("---Request body:", str(body)[:100])
                 access = body['access']
                 expires = access['token']['expires']
 

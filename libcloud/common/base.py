@@ -522,6 +522,7 @@ class Connection(object):
         if self.timeout and not PY25:
             kwargs.update({'timeout': self.timeout})
 
+        print("---Connection kwargs:", kwargs)
         connection = self.conn_classes[secure](**kwargs)
         # You can uncoment this line, if you setup a reverse proxy server
         # which proxies to your endpoint, and lets you easily capture
@@ -653,6 +654,12 @@ class Connection(object):
         # Removed terrible hack...this a less-bad hack that doesn't execute a
         # request twice, but it's still a hack.
         self.connect()
+        print("---Request method:", method)
+        print("---Request URL:", url)
+        print("---Request params:", params)
+        print("---Request headers:", headers)
+        print("---Request raw:", raw)
+        print("---Request data:", data)
         try:
             # @TODO: Should we just pass File object as body to request method
             # instead of dealing with splitting and sending the file ourselves?
@@ -681,6 +688,7 @@ class Connection(object):
 
         try:
             response = responseCls(**kwargs)
+            print("---Response:", str(response.body)[:100])
         finally:
             # Always reset the context after the request has completed
             self.reset_context()
